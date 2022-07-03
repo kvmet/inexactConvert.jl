@@ -23,6 +23,7 @@ function inexactConvert(T::Type{q},x::w,r::Base.RoundingMode = Base.RoundNearest
     try
         x = _clip(x,typemin(T),typemax(T)) # Do not switch to `clamp()`!
     catch
+        # If desired type doesn't implement typemin/typemax, try with Int
         x = _clip(x,typemin(Int),typemax(Int))
     end
     return convert(T,x)
